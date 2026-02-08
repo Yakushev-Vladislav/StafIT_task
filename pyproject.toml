@@ -1,0 +1,11 @@
+[tool.black]
+line-length = 79
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 79
+exclude = ["venv", ".venv", ".git"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+fixable = ["ALL"]
