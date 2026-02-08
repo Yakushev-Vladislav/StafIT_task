@@ -1,6 +1,8 @@
 import subprocess
 import sys
 
+from main import main
+
 CSV_CONTENT = """country,year,gdp
 United States,2023,300
 United States,2022,100
@@ -8,6 +10,21 @@ China,2023,50
 China,2022,50
 Japan,2023,100
 """
+
+
+def test_run_main(monkeypatch, tmp_path, capsys):
+    csv_file = tmp_path / "test.csv"
+    csv_file.write_text(CSV_CONTENT)
+
+    monkeypatch.setattr(
+        "sys.argv",
+        ["main.py", "--files", str(csv_file), "--report", "average-gdp"],
+    )
+
+    main()
+
+    captured = capsys.readouterr()
+    assert "United States" in captured.out
 
 
 def test_main_success(tmp_path):
